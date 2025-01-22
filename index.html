@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kill Yourself Gift Card</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffd1ff, #fab1a0); /* More vaporwave aesthetic */
+      font-family: 'Comic Sans MS', cursive; /* Meme-worthy font */
+      text-align: center;
+      position: relative;
+      overflow: hidden; /* Prevent scrollbars from floating images */
+    }
+
+    /* Floating background images */
+    .floating-image {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0.8; /* Increased opacity */
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* First set of images */
+    #img1 { 
+      width: 150px;
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    #img2 {
+      width: 120px;
+      top: 70%;
+      right: 10%;
+      animation-delay: -1.5s;
+    }
+
+    #img3 {
+      width: 100px;
+      bottom: 15%;
+      left: 15%;
+      animation-delay: -3s;
+    }
+
+    #img4 {
+      width: 130px;
+      top: 20%;
+      right: 15%;
+      animation-delay: -4.5s;
+    }
+
+    /* Second set of images */
+    #img5 { 
+      width: 140px;
+      top: 40%;
+      left: 25%;
+      animation-delay: -2s;
+    }
+
+    #img6 {
+      width: 110px;
+      bottom: 30%;
+      right: 25%;
+      animation-delay: -3.5s;
+    }
+
+    #img7 {
+      width: 120px;
+      top: 60%;
+      left: 40%;
+      animation-delay: -1s;
+    }
+
+    #img8 {
+      width: 160px;
+      bottom: 40%;
+      right: 35%;
+      animation-delay: -2.5s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    .gift-card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(255, 192, 203, 0.3);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      overflow: visible; /* Allow button to move outside card */
+      border: 3px solid pink;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 1;
+    }
+
+    .gift-card::before {
+      content: '💋';  /* Added kiss emoji */
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 2rem;
+      opacity: 0.5;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff69b4;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #ff69b4;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    #redeemButton {
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff69b4, #ff8da1);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+      transition: all 0.3s ease;
+      font-family: 'Comic Sans MS', cursive;
+      position: relative; /* Start with relative positioning */
+      z-index: 1000;
+    }
+
+    /* Add a glow effect to make button more visible against any background */
+    #redeemButton::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 27px;
+      z-index: -1;
+      filter: blur(8px);
+    }
+
+    #redeemButton:hover {
+      background: linear-gradient(45deg, #ff8da1, #ff69b4);
+      transform: translateY(-2px) rotate(3deg);
+      box-shadow: 0 7px 20px rgba(255, 105, 180, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- First set of floating images -->
+  <img src="p1.png" class="floating-image" id="img1" alt="">
+  <img src="p2.jpeg" class="floating-image" id="img2" alt="">
+  <img src="p3.png" class="floating-image" id="img3" alt="">
+  <img src="p4.png" class="floating-image" id="img4" alt="">
+  
+  <!-- Second set of floating images -->
+  <img src="p1.png" class="floating-image" id="img5" alt="">
+  <img src="p2.jpeg" class="floating-image" id="img6" alt="">
+  <img src="p3.png" class="floating-image" id="img7" alt="">
+  <img src="p4.png" class="floating-image" id="img8" alt="">
+
+  <div class="gift-card">
+    <h1>✨ Kill Yourself Gift Card ✨</h1>
+    <p>~one time pass for permission to kill yourself~</p>
+    <button id="redeemButton">✨ Redeem ✨</button>
+  </div>
+  <audio id="soundClip" src="sound.mp3"></audio>
+
+  <script>
+    const button = document.getElementById('redeemButton');
+    const audio = document.getElementById('soundClip');
+    const floatingImages = document.querySelectorAll('.floating-image');
+    let isFirstClick = true;
+
+    // Function to get random position for images
+    function getRandomImagePosition() {
+      return {
+        top: `${Math.random() * 80 + 10}%`,    // Between 10% and 90%
+        left: `${Math.random() * 80 + 10}%`,   // Between 10% and 90%
+        right: '',  // Clear right if left is set
+        bottom: '', // Clear bottom if top is set
+      };
+    }
+
+    // Function to randomize all image positions
+    function randomizeImages() {
+      floatingImages.forEach(img => {
+        const pos = getRandomImagePosition();
+        img.style.top = pos.top;
+        img.style.left = pos.left;
+        img.style.right = pos.right;
+        img.style.bottom = pos.bottom;
+      });
+    }
+
+    button.addEventListener('click', () => {
+      // Reset the audio to the start
+      audio.currentTime = 0;
+      audio.play();
+
+      // Randomize image positions
+      randomizeImages();
+
+      // Store current button dimensions before changing position
+      const buttonRect = button.getBoundingClientRect();
+      const buttonWidth = buttonRect.width;
+      const buttonHeight = buttonRect.height;
+      
+      // Only set fixed position on first click
+      if (isFirstClick) {
+        button.style.position = 'fixed';
+        button.style.left = `${buttonRect.left}px`;
+        button.style.top = `${buttonRect.top}px`;
+        isFirstClick = false;
+      }
+      
+      button.style.zIndex = '1000';
+      
+      // Calculate viewport boundaries with padding
+      const padding = 20;
+      const maxX = window.innerWidth - buttonWidth - padding;
+      const maxY = window.innerHeight - buttonHeight - padding;
+      
+      // Ensure minimum position is at least padding distance from edges
+      const minX = padding;
+      const minY = padding;
+      
+      // Calculate new random position within safe bounds
+      const randomX = Math.min(maxX, Math.max(minX, Math.floor(Math.random() * maxX)));
+      const randomY = Math.min(maxY, Math.max(minY, Math.floor(Math.random() * maxY)));
+
+      // Apply new position
+      button.style.left = `${randomX}px`;
+      button.style.top = `${randomY}px`;
+    });
+
+    // Add window resize handler to keep button in bounds
+    window.addEventListener('resize', () => {
+      if (!isFirstClick) {
+        const buttonRect = button.getBoundingClientRect();
+        const padding = 20;
+        
+        const maxX = window.innerWidth - buttonRect.width - padding;
+        const maxY = window.innerHeight - buttonRect.height - padding;
+        
+        const currentX = parseInt(button.style.left);
+        const currentY = parseInt(button.style.top);
+        
+        if (currentX < padding || currentX > maxX || currentY < padding || currentY > maxY) {
+          button.style.left = `${Math.min(maxX, Math.max(padding, currentX))}px`;
+          button.style.top = `${Math.min(maxY, Math.max(padding, currentY))}px`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
