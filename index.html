@@ -276,6 +276,26 @@
         }
       }
     });
+
+    // Check button visibility periodically and reposition if needed
+    setInterval(() => {
+      if (!isFirstClick) {
+        const buttonRect = button.getBoundingClientRect();
+        const padding = 20;
+        
+        // Check if button is outside viewport
+        if (
+          buttonRect.left < padding ||
+          buttonRect.top < padding ||
+          buttonRect.right > window.innerWidth - padding ||
+          buttonRect.bottom > window.innerHeight - padding
+        ) {
+          // Move button to center of viewport if it's outside bounds
+          button.style.left = `${(window.innerWidth - buttonRect.width) / 2}px`;
+          button.style.top = `${(window.innerHeight - buttonRect.height) / 2}px`;
+        }
+      }
+    }, 100); // Check every 100ms
   </script>
 </body>
 </html>
